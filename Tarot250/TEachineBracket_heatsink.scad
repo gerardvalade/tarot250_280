@@ -19,7 +19,7 @@
 $fn = 30;
 //         	
 show_module = 0;
-heatsink_heigth = 0;
+heatsink_heigth = 6;
 
 
 module antenna()
@@ -34,7 +34,7 @@ module antenna()
 	}
 }
 
-module eachine_transmitter_bracket(length= 35, width = 27, tin = 1.5)
+module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 {
 	
 	offset = 5;
@@ -106,11 +106,14 @@ module eachine_transmitter_bracket(length= 35, width = 27, tin = 1.5)
 	
 	difference(){
 		union() {
-			translate([0, 0, tin/2]) cube([length, width, tin], center=true);
+			translate([0, 0.8, tin/2]) cube([length, width, tin], center=true);
 			
 			// heatsink holder
+			translate([0, 3, (tin+1.5)/2]) 
 			for (y=[-1,1]) {
-				translate([0, y*(heatsink_width+1.5)/2+2.5, (tin+1.5)/2]) cube([22, 1.5, tin+1.5], center=true);
+				//translate([0, y*(heatsink_width+1.5)/2+2.5, (tin+1.5)/2]) cube([22, 1.5, tin+1.5], center=true);
+				translate([0, y*(heatsink_width+2.2)/2, 0]) cube([22, 1.5, tin+1.5], center=true);
+				//#translate([0, y*(heatsink_width)/2, 0]) cube([50, 0.2, 0.2], center=true);
 			}
 
 			plate_pad(d=5.5, h=2);
