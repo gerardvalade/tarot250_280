@@ -111,7 +111,6 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 			// heatsink holder
 			translate([0, 3, (tin+1.5)/2]) 
 			for (y=[-1,1]) {
-				//translate([0, y*(heatsink_width+1.5)/2+2.5, (tin+1.5)/2]) cube([22, 1.5, tin+1.5], center=true);
 				translate([0, y*(heatsink_width+2.2)/2, 0]) cube([22, 1.5, tin+1.5], center=true);
 				//#translate([0, y*(heatsink_width)/2, 0]) cube([50, 0.2, 0.2], center=true);
 			}
@@ -133,7 +132,7 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 		translate([0, 0, -0.1]) plate_pad(d=2.2, h=10);
 		translate([0, -width/2, 0]) {
 			// hole 
-			yy = heatsink_width > 15.8 ? (heatsink_width/2-7.9) : 0;
+			yy = heatsink_width > 15.8 ? (heatsink_width/2-8.6) : 0;
 			translate([0, 6.5/2-yy, tin/2]) cube([16, 6.55, tin+2], center=true);
 			
 			
