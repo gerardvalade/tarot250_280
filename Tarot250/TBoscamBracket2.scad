@@ -35,7 +35,7 @@ module antenna()
 
 module boscam_transmitter_module(rot_antenna=180)
 {
-	tin=1.5;
+	thick=1.5;
 	length = 38.4; 
 	width=26.4;
 	heatsink_heigth = 3.17;
@@ -45,10 +45,10 @@ module boscam_transmitter_module(rot_antenna=180)
 	color([0.9, 0, 0])
 	{
 		// PCB
-		translate([0, 0, hf_heigth+tin/2+heatsink_heigth]) {
-		//translate([0, 0, tin/2+11.9]) {
-			cube([length, width, tin], center=true);
-			//translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, tin], center=true);
+		translate([0, 0, hf_heigth+thick/2+heatsink_heigth]) {
+		//translate([0, 0, thick/2+11.9]) {
+			cube([length, width, thick], center=true);
+			//translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, thick], center=true);
 			translate([(length)/2-1, (width-8)/2, -3.5]) cube([13, 8, 5.5], center=true);
 			translate([(length)/2-1, -(width-10.23)/2, -3.5]) cube([13, 10.2, 5.5], center=true);
 		}
@@ -78,12 +78,12 @@ module hexaprismx(
 }
 
 
-module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
+module boscam_transmitter_bracket(length= 42, width = 25, thick = 1.5)
 {
 	
 	offset_x = -5;
 	offset_y = 5;
-	pad_heigth =  17.4+tin;
+	pad_heigth =  17.4+thick;
 	
 	
 	module transmitter_module_pad(d, h)
@@ -123,11 +123,11 @@ module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
 		}
 	}
 
-	module lower_plate(tin = 1)
+	module lower_plate(thick = 1)
 	{
 		difference(){
 			union() {
-				translate([0, 0, tin/2]) cube([length+1, width, tin], center=true);
+				translate([0, 0, thick/2]) cube([length+1, width, thick], center=true);
 				
 				mirror([0, 1, 0]) plate_pad(d=5.5, h=6);
 			}
@@ -147,7 +147,7 @@ module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
 	
 	module hole(d)
 	{
-		translate([-length/2+offset_x, 37.57/2-22, 10+tin])
+		translate([-length/2+offset_x, 37.57/2-22, 10+thick])
 		hull() {
 			translate([0, 0, 3]) rotate([0, 90, 0]) cylinder(d=d, h=6, center=true);
 			translate([0, 0, -1]) rotate([0, 90, 0]) cylinder(d=d, h=6, center=true);
@@ -157,7 +157,7 @@ module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
 	
 	difference(){
 		union() {
-			translate([offset_x/2 - 1, 0, tin/2]) cube([length+1-offset_x, width, tin], center=true);
+			translate([offset_x/2 - 1, 0, thick/2]) cube([length+1-offset_x, width, thick], center=true);
 				
 			translate([-length/2-1+offset_x, offset_y+37.57/2-27, 19/2]) cube([2, 15, 19], center=true);
 	
@@ -185,11 +185,11 @@ module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
 	{
 		translate([-5.5, 0, 0]) tarot_plate();
 		
-		translate([0, 0, tin]) {
+		translate([0, 0, thick]) {
 			translate([offset_x, offset_y, 11+6.5]) rotate([180, 0, 0]) boscam_transmitter_module();
-			translate([offset_x-0.5, offset_y-1, pad_heigth-tin]) rotate([0,0,90]) transmitter_holder(length = 46);
+			translate([offset_x-0.5, offset_y-1, pad_heigth-thick]) rotate([0,0,90]) transmitter_holder(length = 46);
 		}
-		translate([0, 0, -tin]) rotate([180, 0, 0]) lower_plate();
+		translate([0, 0, -thick]) rotate([180, 0, 0]) lower_plate();
 		
 	} else {
 		translate([0, 30, 0]) rotate([0,0,90]) transmitter_holder(length =46);
@@ -197,11 +197,11 @@ module boscam_transmitter_bracket(length= 42, width = 25, tin = 1.5)
 	}
 }
 
-module tarot_plate(length=61, width=37.57, tin=1)
+module tarot_plate(length=61, width=37.57, thick=1)
 {
 	color([0.9, 0.9, 0]) difference(){
 		union() {
-			translate([0, 0, -tin/2]) cube([length, width, tin], center=true);
+			translate([0, 0, -thick/2]) cube([length, width, thick], center=true);
 		}
 		translate([0, 0, 3]) {
 			for (y=[-1, 1]) {

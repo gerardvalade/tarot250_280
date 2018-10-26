@@ -18,7 +18,7 @@
 
 $fn = 30;
 //         	
-show_module = 0;
+show_module = 1;
 heatsink_heigth = 6;
 
 
@@ -34,13 +34,13 @@ module antenna()
 	}
 }
 
-module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
+module eachine_transmitter_bracket(length= 35, width = 28, thick = 1.5)
 {
 	
 	offset = 5;
 	heatsink_width = heatsink_heigth == 0 ? 19 : 20;
 	hf_heigth = 3.79;
-	pad_heigth = 5.76 + heatsink_heigth + tin;
+	pad_heigth = 5.76 + heatsink_heigth + thick;
 	
 	module plate_pad(d, h)
 	{
@@ -63,15 +63,15 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 	
 	module transmitter_module(length = 25.3, width=20.25)
 	{
-		tin=1.5;
+		thick=1.5;
 		
 		
 		color([0.5, 0, 0])
 		{
 			// PCB
-			translate([0, 0, hf_heigth+tin/2+heatsink_heigth]) {
-				cube([length, width, tin], center=true);
-				translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, tin], center=true);
+			translate([0, 0, hf_heigth+thick/2+heatsink_heigth]) {
+				cube([length, width, thick], center=true);
+				translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, thick], center=true);
 			}
 			// HF module		
 			translate([2, 0, hf_heigth/2+heatsink_heigth]) cube([19.3, 18.5, hf_heigth], center=true);
@@ -106,12 +106,12 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 	
 	difference(){
 		union() {
-			translate([0, 0.8, tin/2]) cube([length, width, tin], center=true);
+			translate([0, 0.8, thick/2]) cube([length, width, thick], center=true);
 			
 			// heatsink holder
-			translate([0, 3, (tin+1.5)/2]) 
+			translate([0, 3, (thick+1.5)/2]) 
 			for (y=[-1,1]) {
-				translate([0, y*(heatsink_width+2.2)/2, 0]) cube([22, 1.5, tin+1.5], center=true);
+				translate([0, y*(heatsink_width+2.2)/2, 0]) cube([22, 1.5, thick+1.5], center=true);
 				//#translate([0, y*(heatsink_width)/2, 0]) cube([50, 0.2, 0.2], center=true);
 			}
 
@@ -133,7 +133,7 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 		translate([0, -width/2, 0]) {
 			// hole 
 			yy = heatsink_width > 15.8 ? (heatsink_width/2-8.6) : 0;
-			translate([0, 6.5/2-yy, tin/2]) cube([16, 6.55, tin+2], center=true);
+			translate([0, 6.5/2-yy, thick/2]) cube([16, 6.55, thick+2], center=true);
 			
 			
 //			translate([0, 0, 0]) {
@@ -148,7 +148,7 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 		}
 	}
 	
-	module lower_plate(tin = 1)
+	module lower_plate(thick = 1)
 	{
 		module roundHole(s)
 		{
@@ -169,12 +169,12 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 		
 		difference(){
 			union() {
-				translate([0, 0, tin/2]) cube([length+1, width, tin], center=true);
+				translate([0, 0, thick/2]) cube([length+1, width, thick], center=true);
 				
 				mirror([0, 1, 0]) plate_pad(d=5.5, h=6);
 			}
 			translate([0, 0, -0.5]) mirror([0, 1, 0]) plate_pad(d=2.2, h=10);
-			translate([0, 0, tin/2]) roundHole([length-6, width-6, tin+2], center=true);
+			translate([0, 0, thick/2]) roundHole([length-6, width-6, thick+2], center=true);
 //			translate([-15, 0, 3]) {
 //				for (y=[-1, 1]) {
 //					hull() {
@@ -190,9 +190,9 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 	{
 		translate([-5.5, 0, 0]) tarot_plate();
 		
-		translate([0, 0, tin]) {
+		translate([0, 0, thick]) {
 			translate([0, offset/2, 0]) transmitter_module();
-			translate([0, -0.5, pad_heigth-tin+1]) rotate([0,0,90]) transmitter_holder(length =32);
+			translate([0, -0.5, pad_heigth-thick+1]) rotate([0,0,90]) transmitter_holder(length =32);
 			translate([0, 0, -2])  rotate([180,0,0]) lower_plate();
 		}
 		
@@ -202,11 +202,11 @@ module eachine_transmitter_bracket(length= 35, width = 28, tin = 1.5)
 	}
 }
 
-module tarot_plate(length=61, width=37.57, tin=1)
+module tarot_plate(length=61, width=37.57, thick=1)
 {
 	color([0.9, 0.9, 0]) difference(){
 		union() {
-			translate([0, 0, -tin/2]) cube([length, width, tin], center=true);
+			translate([0, 0, -thick/2]) cube([length, width, thick], center=true);
 		}
 		translate([0, 0, 3]) {
 			for (y=[-1, 1]) {

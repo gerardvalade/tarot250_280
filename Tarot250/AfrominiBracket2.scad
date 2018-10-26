@@ -355,7 +355,7 @@ module transmitter_holder()
 }
 
 
-module transmitter_bracket(length= 35, width = 27, tin = 1.5)
+module transmitter_bracket(length= 35, width = 27, thick = 1.5)
 {
 	
 	offset = 5;
@@ -367,19 +367,19 @@ module transmitter_bracket(length= 35, width = 27, tin = 1.5)
 		color([0.5, 0, 0]){
 			translate([2, 0, hf/2+heat_sink_heigth]) cube([19.3, 18.5, hf], center=true);
 			translate([2, 0, heat_sink_heigth/2]) cube([20, 20, heat_sink_heigth], center=true);
-			translate([0, 0, hf+tin/2+heat_sink_heigth]) {
-				cube([length, width, tin], center=true);
-				translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, tin], center=true);
+			translate([0, 0, hf+thick/2+heat_sink_heigth]) {
+				cube([length, width, thick], center=true);
+				translate([-(length+3.24)/2, (width-9)/2, 0]) cube([3.24, 9, thick], center=true);
 			}		
 		}
 	}
 	
 	difference(){
 		union() {
-			translate([0, 0, tin/2]) cube([length, width, tin], center=true);
+			translate([0, 0, thick/2]) cube([length, width, thick], center=true);
 			if (heat_sink_heigth==0)
 				for (y=[-1,1]) {
-					translate([0, y*(19+1.5)/2+2.5, (tin+1.5)/2]) cube([22, 1.5, tin+1.5], center=true);
+					translate([0, y*(19+1.5)/2+2.5, (thick+1.5)/2]) cube([22, 1.5, thick+1.5], center=true);
 				}
 			translate([0, -width/2, 0]) {
 				translate([0, 0, 3]) {
@@ -395,7 +395,7 @@ module transmitter_bracket(length= 35, width = 27, tin = 1.5)
 	
 		}
 		translate([0, -width/2, 0]) {
-			translate([0, 6.5/2-1.55, tin/2]) cube([16, 6.55, tin+2], center=true);
+			translate([0, 6.5/2-1.55, thick/2]) cube([16, 6.55, thick+2], center=true);
 			translate([0, 0, 0]) {
 				translate([length/2, 19, 3]) cylinder(d=2.2, h=10, center=true);
 				for (x=[-1,1]) {
@@ -409,7 +409,7 @@ module transmitter_bracket(length= 35, width = 27, tin = 1.5)
 	}
 	if(show_module) 
 	{
-		translate([0, offset/2, tin]) transmitter();
+		translate([0, offset/2, thick]) transmitter();
 		translate([0, -0.5, 8]) rotate([0,0,90]) transmitter_holder(length =32);
 		
 	}
@@ -507,17 +507,17 @@ module tarotTL250()
 {
 	length=119;
 	width=34.62; 
-	tin=0.1;
+	thick=0.1;
 	
 	module square(l, w)
 	{
 		difference() {
-			cube([l, w, tin], center=true);
-			cube([l-2, w-2, tin+2], center=true);
+			cube([l, w, thick], center=true);
+			cube([l-2, w-2, thick+2], center=true);
 		}
 	}
 
-	translate([length-34/2+8, 0, 16]) square(34, width, tin);
+	translate([length-34/2+8, 0, 16]) square(34, width, thick);
 	
 	translate([length-61/2-26, 0, 30]) square(61, width);
 	
@@ -542,24 +542,24 @@ module tarotTL250()
 	
 	difference() {
 		union() {
-			translate([length/2, 0, 0]) cube([length, width, tin], center=true);
+			translate([length/2, 0, 0]) cube([length, width, thick], center=true);
 			l= 18;
-			translate([(length-l)/2, 0, -38]) cube([length+l, width, tin], center=true);
+			translate([(length-l)/2, 0, -38]) cube([length+l, width, thick], center=true);
 		
 		}
 		for (y=[-1,1]) {
 			for (x=[length-102]) {
 				hull() 
 				{
-					translate([x-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
-					translate([x+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
+					translate([x-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
+					translate([x+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
 				}
 			}
 			for (x=[0:6]) {
 				pos = length-36-x*8;
 				hull() {
-					translate([pos-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
-					translate([pos+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
+					translate([pos-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
+					translate([pos+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
 				}
 			}
 		}

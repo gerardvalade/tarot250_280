@@ -85,7 +85,7 @@ camera_pad_heigth=holder_pad_heigth+1.5;
 				// holder pad
 				translate([x*plate_width_fixing_hole/2, y*plate_width_fixing_hole/2-holder_pad_offset, holder_pad_heigth/2]) pad(5, holder_pad_heigth);
 				// camera pad
-				translate([x*camera_width_fixing_hole/2, y*camera_width_fixing_hole/2, camera_pad_heigth/2]) pad(4.5, camera_pad_heigth);
+				#translate([x*camera_width_fixing_hole/2, y*camera_width_fixing_hole/2, camera_pad_heigth/2]) pad(4.5, camera_pad_heigth);
 			}
 		}
 	}

@@ -30,7 +30,7 @@ module hexaprismx(
 	cylinder(r = ra, h=h, $fn=6, center=false);
 }
 
-module motor_tilt(rot=0, rside=0)
+module motor_tilt(rot=0)
 {
 	heigth=6;
 	module plain()
@@ -47,21 +47,9 @@ module motor_tilt(rot=0, rside=0)
 		M25_hole = 2.8;
 		M25_head_hole = 5.1;
 		
-		rot2 =  (rot*rside < 0) /* bogus > */ ? rot+270 : rot+90; 
-//		rotate([forward_tilt, inner_tilt, 0]) rotate([0, 0, n+rot])  translate([0, 0, -2]) hull() {
-//			translate([19.5/2, 0, 0])   cylinder(d=4.6, h=20, center=false);
-//			translate([30.5/2, 0, 0])   cylinder(d=5.6, h=20, center=false);
-//		}
-		rotate([forward_tilt, 0, 0]) rotate([0, rside*inner_tilt, 0]) rotate([0, 0, rot2])  translate([0, 0, -7]) 	hull() {
-			translate([19.5/2, 0, 0])   cylinder(d=4.6, h=20, center=false);
-			translate([30.5/2, 0, 0])   cylinder(d=5.6, h=20, center=false);
-		}
-		
-		
-		for(n=[0, 180])
+		for(n=[0, 90, 180, 270])
 		{
-			//if (rot==0 && (n==90 || n==270) || rot==45 && (n==0 || n==180))  rotate([0, 0, n+rot]) 
-			rotate([0, 0, n+rot]){
+			if (rot==0 && (n==90 || n==270) || rot==45 && (n==0 || n==180))  rotate([0, 0, n+rot]) {
 				translate([16/2, 0, 0]) { 
 					translate([0, 0, 5]) cylinder(d=M25_hole, h=10.5, center=true);
 
@@ -71,18 +59,15 @@ module motor_tilt(rot=0, rside=0)
 					
 				}
 			}
-		}
-		for(n=[0, 90, 180, 270])
-		{
 			translate([0.5, 1.3, 0]) {
-				//if (n==180 && rot==0 || n==90 && rot==45)
+				if (n==180 && rot==0 || n==90 && rot==45)
 				{
-//					rotate([forward_tilt, inner_tilt, 0]) rotate([0, 0, n+45+rot])  translate([0, 0, -2]) hull() {
-//						translate([19.5/2, 0, 0])   cylinder(d=4.6, h=20, center=false);
-//						translate([30.5/2, 0, 0])   cylinder(d=5.6, h=20, center=false);
-//					}
+					rotate([forward_tilt, inner_tilt, 0]) rotate([0, 0, n+45+rot])  translate([0, 0, -2]) hull() {
+						translate([19.5/2, 0, 0])   cylinder(d=4.6, h=20, center=false);
+						translate([30.5/2, 0, 0])   cylinder(d=5.6, h=20, center=false);
+					}
 					
-				} //else if (rot==0 && (n==90 || n==270) || rot==45 && (n==180 || n==0))
+				} else if (rot==0 && (n==90 || n==270) || rot==45 && (n==180 || n==0))
 				
 				rotate([forward_tilt, inner_tilt, 0]) {
 					// motor center hole
@@ -146,14 +131,14 @@ module calibration_stand()
 	}
 }
 
-// forward
-translate([40, 0, 0]) motor_tilt(rot=45, rside=1);
-translate([-40, 0, 0]) mirror([0, 0, 0])motor_tilt(rot=-45, rside=-1);
-
 
 // backward
-translate([40, 60, 0]) motor_tilt(rot=-45, rside=1);
-translate([-40, 60, 0]) mirror([0, 0, 0])motor_tilt(rot=45, rside=-1);
+translate([40, 60, 0]) motor_tilt(rot=0);
+translate([-40, 60, 0]) mirror([1, 0, 0])motor_tilt();
+
+// forward
+translate([40, 0, 0]) motor_tilt(rot=45);
+translate([-40, 0, 0]) mirror([1, 0, 0])motor_tilt(rot=45);
 
 
  calibration_stand();

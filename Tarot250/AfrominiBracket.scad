@@ -423,17 +423,17 @@ module tarotTL250()
 {
 	length=119;
 	width=34.62; 
-	tin=0.1;
+	thick=0.1;
 	
 	module square(l, w)
 	{
 		difference() {
-			cube([l, w, tin], center=true);
-			cube([l-2, w-2, tin+2], center=true);
+			cube([l, w, thick], center=true);
+			cube([l-2, w-2, thick+2], center=true);
 		}
 	}
 
-	translate([length-34/2+8, 0, 16]) square(34, width, tin);
+	translate([length-34/2+8, 0, 16]) square(34, width, thick);
 	
 	translate([length-61/2-26, 0, 30]) square(61, width);
 	
@@ -458,24 +458,24 @@ module tarotTL250()
 	
 	difference() {
 		union() {
-			translate([length/2, 0, 0]) cube([length, width, tin], center=true);
+			translate([length/2, 0, 0]) cube([length, width, thick], center=true);
 			l= 18;
-			translate([(length-l)/2, 0, -38]) cube([length+l, width, tin], center=true);
+			translate([(length-l)/2, 0, -38]) cube([length+l, width, thick], center=true);
 		
 		}
 		for (y=[-1,1]) {
 			for (x=[length-102]) {
 				hull() 
 				{
-					translate([x-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
-					translate([x+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
+					translate([x-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
+					translate([x+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
 				}
 			}
 			for (x=[0:6]) {
 				pos = length-36-x*8;
 				hull() {
-					translate([pos-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
-					translate([pos+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+tin, center=true);
+					translate([pos-1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
+					translate([pos+1, y*(hole_width/2), 0]) cylinder(d=2.2, h=1+thick, center=true);
 				}
 			}
 		}
